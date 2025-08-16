@@ -40,6 +40,7 @@ find "$INPUT_DIR" -type f -name "*.webm" | while IFS= read -r f; do
   echo "ffmpeg: \"$f\" -> \"$outpath\""
   ffmpeg -y -hide_banner -loglevel error \
     -i "$f" \
+    -af "silenceremove=start_periods=1:start_silence=0.1:start_threshold=-40dB" \
     -ac 1 -ar 48000 -sample_fmt s16 \
     "$outpath"
 
